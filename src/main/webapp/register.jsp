@@ -10,8 +10,8 @@
     <title>UT-NodeJS 중간고사 | Register</title>
 
     <!-- 학생 이름과 학번 -->
-    <meta name="author" content="???" />
-    <meta name="description" content="???" />
+    <meta name="author" content="이승원" />
+    <meta name="description" content="학번: 20211834" />
 
     <!-- CSS 파일에 대한 link테그를 수정하십시오 -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/public/css/style.css" />
@@ -24,7 +24,38 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/public/css/confetti.css" />
 
     <!-- JS 파일에 대한 script테그를 수정하십시오 -->
-    <script defer src="${pageContext.request.contextPath}/public/js/functions.js"></script>
+    <script defer src="${pageContext.request.contextPath}/public/js/functions.js">
+	    document.querySelector('form').onsubmit = function() {
+	        var email = document.getElementById('floatingEmail').value;
+	        var phone = document.getElementById('floatingPhone').value;
+	        var password = document.querySelector('input[name="password"]').value;
+	
+	        if (!email || !phone || !password) {
+	            alert("모든 필드를 채워주세요.");
+	            return false;
+	        }
+	        
+	        var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+	        if (!emailPattern.test(email)) {
+	            alert("올바른 이메일 주소를 입력해주세요.");
+	            return false;
+	        }
+	
+	        var phonePattern = /^\d{10,12}$/;
+	        if (!phonePattern.test(phone)) {
+	            alert("전화번호는 숫자만 입력해야 하며, 10~12자리여야 합니다.");
+	            return false;
+	        }
+	
+	        if (password.length < 6) {
+	            alert("비밀번호는 최소 6자리 이상이어야 합니다.");
+	            return false;
+	        }
+	
+	        return true;
+	    };
+
+    </script>
   </head>
 
   <body>
@@ -59,6 +90,7 @@
                   type="text"
                   class="form-control"
                   id="floatingName"
+                  name="username"
                   placeholder="Name"
                 />
                 <label for="floatingName">Name</label>
